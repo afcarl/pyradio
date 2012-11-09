@@ -200,6 +200,16 @@ class PyRadio(object):
             self.refreshBody()
             return
 
+        if char == ord('G'):
+            self.setStation(len(self.stations) - 1)
+            self.refreshBody()
+            return
+
+        if char == ord('g'):
+            self.setStation(0)
+            self.refreshBody()
+            return
+
         if char == ord('+'):
             self.player.volumeUp()
             return
