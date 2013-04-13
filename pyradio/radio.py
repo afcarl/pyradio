@@ -45,6 +45,7 @@ class PyRadio(object):
         curses.init_pair(9, curses.COLOR_BLACK, curses.COLOR_GREEN)
 
         self.log = Log()
+        self.log.write('Starting')
         self.player = Player(self.log)
 
         self.stdscr.nodelay(0)
