@@ -1,6 +1,6 @@
+import os
 import subprocess
 import thread
-import os
 
 
 class Player(object):
@@ -19,7 +19,7 @@ class Player(object):
             while(user_input != ''):
                 self.outputStream.write(user_input)
                 user_input = self.process.stdout.readline()
-        except:
+        except: # nolint
             pass
 
     def is_playing(self):
@@ -32,10 +32,9 @@ class Player(object):
             opts = ["mplayer", "-quiet", "-playlist", stream_url]
         else:
             opts = ["mplayer", "-quiet", stream_url]
-        self.process = subprocess.Popen(opts, shell=False,
-                                        stdout=subprocess.PIPE,
-                                        stdin=subprocess.PIPE,
-                                        stderr=subprocess.STDOUT)
+        self.process = subprocess.Popen(
+            opts, shell=False, stdout=subprocess.PIPE,
+            stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
         thread.start_new_thread(self.updateStatus, ())
 
     def sendCommand(self, command):
@@ -43,7 +42,7 @@ class Player(object):
         if(self.process is not None):
             try:
                 self.process.stdin.write(command)
-            except:
+            except: # nolint
                 pass
 
     def mute(self):
