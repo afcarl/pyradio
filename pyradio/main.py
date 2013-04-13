@@ -8,7 +8,9 @@ from .radio import PyRadio
 
 
 DEFAULT_FILE = ''
-for path in [op.join(getenv('HOME', '~'), '.pyradio', 'stations.csv'), op.join(getenv('HOME', '~'), '.pyradio'), op.join(op.dirname(__file__), 'stations.csv')]:
+for path in [op.join(getenv('HOME', '~'), '.pyradio', 'stations.csv'),
+             op.join(getenv('HOME', '~'), '.pyradio'),
+             op.join(op.dirname(__file__), 'stations.csv')]:
     if op.exists(path) and op.isfile(path):
         DEFAULT_FILE = path
         break
@@ -16,10 +18,16 @@ for path in [op.join(getenv('HOME', '~'), '.pyradio', 'stations.csv'), op.join(g
 
 def shell():
     parser = ArgumentParser(description="Console radio player")
-    parser.add_argument("--stations", "-s", default=DEFAULT_FILE, help="Path on stations csv file.")
-    parser.add_argument("--play", "-p", nargs='?', default=False, help="Start and play. The value is num station or empty for random.")
-    parser.add_argument("--add", "-a", action='store_true', help="Add station to list.")
-    parser.add_argument("--list", "-l", action='store_true', help="List of added stations.")
+    parser.add_argument(
+        "--stations", "-s", default=DEFAULT_FILE,
+        help="Path on stations csv file.")
+    parser.add_argument(
+        "--play", "-p", nargs='?', default=False,
+        help="Start and play. The value is num station or empty for random.")
+    parser.add_argument(
+        "--add", "-a", action='store_true', help="Add station to list.")
+    parser.add_argument(
+        "--list", "-l", action='store_true', help="List of added stations.")
     args = parser.parse_args()
 
     try:
@@ -32,7 +40,7 @@ def shell():
     for row in csv.reader(cfgfile, skipinitialspace=True):
         if row[0].startswith('#'):
             continue
-        name, url = map(lambda s: s.strip(), row)
+        name, url = [s.strip() for s in row]
         stations.append((name, url))
 
     if args.list:

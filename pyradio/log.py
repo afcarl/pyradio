@@ -1,3 +1,6 @@
+import sys
+
+
 class Log(object):
     """ Log class that outputs text to a curses screen """
 
@@ -17,6 +20,7 @@ class Log(object):
 
     def write(self, msg):
         self.msg = msg.strip()
+        sys.stdout.write("\x1b]2;PyRadio: {0}\x07".format(msg))
 
         if self.cursesScreen:
             self.cursesScreen.erase()
